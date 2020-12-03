@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Full stack application for creating and reviewing flash cards",
   "scripts": {
-    "start": "nodemon server/index.js",
+    "start": "nodemon server/server.js",
     "build": "NODE_ENV=production webpack",
     "dev": "NODE_ENV=development concurrently \"nodemon server/index.js\" \"webpack-dev-server --hot\"",
     "test": "echo \"Error: no test specified\" && exit 1"
