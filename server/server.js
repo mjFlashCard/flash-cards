@@ -1,6 +1,17 @@
 const express = require('express');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const path = require('path');
 
-app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+const PORT = 3000;
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.get('/', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../client/index.html'));
+});
+
+app.listen(PORT, () => console.log(`listening on Port: ${PORT}`));
+
+module.exports = app;
