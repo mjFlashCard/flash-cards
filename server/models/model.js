@@ -9,25 +9,25 @@ mongoose.connect(MONGO_URI, OPTIONS)
 
 const { Schema } = mongoose;
 const userSchema = new Schema({
-  username: String,
-  password: String,
+  username: { type: String, required: true, index: { unique: true } },
+  password: { type: String, required: true },
   name: {
-    first: String,
-    last: String
+    first: { type: String, required: true },
+    last: { type: String, required: true }
   }
 });
 
 const cardSchema = new Schema({
-  title: String,
-  body: String,
-  group: String,
+  title: { type: String, required: true },
+  body: { type: String, required: true },
+  group: { type: String, required: true },
   user_id: {
     type: Schema.Types.ObjectId,
     ref: 'user'
   }
 });
 
-const Users = mongoose.model('user', userSchema);
-const Cards = mongoose.model('card', cardSchema);
+const User = mongoose.model('user', userSchema);
+const Card = mongoose.model('card', cardSchema);
 
-module.exports = { Users, Cards };
+module.exports = { User, Card };
