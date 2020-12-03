@@ -1,0 +1,11 @@
+const { Schema } = require('mongoose');
+
+module.exports = new Schema({
+  title: { type: String, required: true },
+  body: { type: String, required: true },
+  group: { type: String, required: true },
+  user_id: {
+    type: Schema.Types.ObjectId,
+    ref: 'user'
+  }
+});
