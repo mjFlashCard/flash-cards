@@ -1,5 +1,6 @@
 **.DS_Store
 **.sql
+**.env
 node_modules/
 build/
 npm-debug.log*
