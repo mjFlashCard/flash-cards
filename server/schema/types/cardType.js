@@ -1,6 +1,6 @@
 const graphql = require('graphql');
 
-module.exports = new graphql.GraphQLObjectType({
+const CardType = new graphql.GraphQLObjectType({
   name: 'Card',
   fields: {
     _id: { type: graphql.GraphQLID },
@@ -9,3 +9,5 @@ module.exports = new graphql.GraphQLObjectType({
     group: { type: graphql.GraphQLString }
   }
 });
+
+module.exports = CardType;

@@ -5,7 +5,7 @@ const { userResolver, usersResolver } = require('../../resolvers/root/queryResol
 
 const { GraphQLList } = graphql;
 
-module.exports = new graphql.GraphQLObjectType({
+const QueryType = new graphql.GraphQLObjectType({
   name: 'Query',
   fields: {
     user: {
@@ -28,3 +28,5 @@ module.exports = new graphql.GraphQLObjectType({
     }
   }
 });
+
+module.exports = QueryType;
