@@ -1,18 +1,26 @@
-const graphql = require('graphql');
+const {
+  GraphQLObjectType,
+  GraphQLList,
+  GraphQLID,
+  GraphQLString
+} = require('graphql');
 const UserType = require('../UserType');
 const CardType = require('../CardType');
-const { userResolver, usersResolver } = require('../../resolvers/root/queryResolvers');
+const {
+  userResolver,
+  usersResolver,
+  cardResolver,
+  cardsResolver
+} = require('../../resolvers/root/queryResolvers');
 
-const { GraphQLList } = graphql;
-
-const QueryType = new graphql.GraphQLObjectType({
+const QueryType = new GraphQLObjectType({
   name: 'Query',
   fields: {
     user: {
       type: UserType,
       args: {
-        _id: { type: graphql.GraphQLID },
-        username: { type: graphql.GraphQLString }
+        _id: { type: GraphQLID },
+        username: { type: GraphQLString }
       },
       resolve: userResolver
     },
@@ -23,8 +31,16 @@ const QueryType = new graphql.GraphQLObjectType({
     card: {
       type: CardType,
       args: {
-        _id: { type: graphql.GraphQLID }
-      }
+        _id: { type: GraphQLID }
+      },
+      resolve: cardResolver
+    },
+    cards: {
+      type: new GraphQLList(CardType),
+      args: {
+        _id: { type: GraphQLID }
+      },
+      resolve: cardsResolver
     }
   }
 });
