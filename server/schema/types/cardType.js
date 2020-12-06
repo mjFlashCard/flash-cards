@@ -1,12 +1,12 @@
-const graphql = require('graphql');
+const { GraphQLObjectType, GraphQLID, GraphQLString } = require('graphql');
 
-const CardType = new graphql.GraphQLObjectType({
+const CardType = new GraphQLObjectType({
   name: 'Card',
   fields: {
-    _id: { type: graphql.GraphQLID },
-    title: { type: graphql.GraphQLString },
-    body: { type: graphql.GraphQLString },
-    group: { type: graphql.GraphQLString }
+    _id: { type: GraphQLID },
+    title: { type: GraphQLString },
+    body: { type: GraphQLString },
+    group: { type: GraphQLString }
   }
 });
 

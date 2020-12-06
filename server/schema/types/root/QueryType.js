@@ -25,7 +25,7 @@ const QueryType = new GraphQLObjectType({
       resolve: userResolver
     },
     users: {
-      type: new GraphQLList(UserType),
+      type: GraphQLList(UserType),
       resolve: usersResolver
     },
     card: {
@@ -36,10 +36,7 @@ const QueryType = new GraphQLObjectType({
       resolve: cardResolver
     },
     cards: {
-      type: new GraphQLList(CardType),
-      args: {
-        _id: { type: GraphQLID }
-      },
+      type: GraphQLList(CardType),
       resolve: cardsResolver
     }
   }

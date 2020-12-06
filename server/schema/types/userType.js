@@ -1,14 +1,22 @@
-const graphql = require('graphql');
+const {
+  GraphQLObjectType, GraphQLList, GraphQLID, GraphQLString
+} = require('graphql');
+const CardType = require('./CardType');
+const { cardsResolver } = require('../resolvers/userResolvers');
 
-const UserType = new graphql.GraphQLObjectType({
+const UserType = new GraphQLObjectType({
   name: 'User',
-  fields: {
-    _id: { type: graphql.GraphQLID },
-    username: { type: graphql.GraphQLString },
-    password: { type: graphql.GraphQLString },
-    firstname: { type: graphql.GraphQLString },
-    lastname: { type: graphql.GraphQLString }
-  }
+  fields: () => ({
+    _id: { type: GraphQLID },
+    username: { type: GraphQLString },
+    password: { type: GraphQLString },
+    firstname: { type: GraphQLString },
+    lastname: { type: GraphQLString },
+    cards: {
+      type: GraphQLList(CardType),
+      resolve: cardsResolver
+    }
+  })
 });
 
 module.exports = UserType;
