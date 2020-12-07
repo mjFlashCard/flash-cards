@@ -3,7 +3,6 @@ const { graphqlHTTP } = require('express-graphql');
 const dotenv = require('dotenv');
 const path = require('path');
 const schema = require('./schema/schema');
-// const resolvers = require('./schema/resolvers/resolvers');
 
 if (process.env.NODE_ENV !== 'production') dotenv.config();
 
