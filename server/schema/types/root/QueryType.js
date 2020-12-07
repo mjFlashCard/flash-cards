@@ -4,8 +4,7 @@ const {
   GraphQLID,
   GraphQLString
 } = require('graphql');
-const UserType = require('../UserType');
-const CardType = require('../CardType');
+const { UserType, CardType } = require('../types');
 const {
   userResolver,
   usersResolver,

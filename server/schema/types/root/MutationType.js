@@ -1,6 +1,5 @@
 const graphql = require('graphql');
-const UserType = require('../UserType');
-const CardType = require('../CardType');
+const { UserType, CardType } = require('../types');
 const {
   createUserResolver,
   updateUserResolver,
