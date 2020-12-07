@@ -1,5 +1,5 @@
 const { GraphQLObjectType, GraphQLID, GraphQLString } = require('graphql');
-const { authorResolver } = require('../resolvers/cardResolvers');
+const { authorResolver } = require('../../resolvers/cardResolvers');
 
 const cardType = (types) => new GraphQLObjectType({
   name: 'Card',

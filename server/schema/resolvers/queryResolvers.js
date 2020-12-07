@@ -1,4 +1,4 @@
-const { User, Card } = require('../../../model/model');
+const { User, Card } = require('../../model/model');
 
 const queryResolvers = {};
 

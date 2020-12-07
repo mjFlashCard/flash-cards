@@ -1,5 +1,5 @@
 const graphql = require('graphql');
-const { userType, cardType } = require('../types');
+const { userType, cardType } = require('./custom/types');
 const {
   createUserResolver,
   updateUserResolver,
@@ -9,7 +9,7 @@ const {
   updateCardResolver,
   replaceCardResolver,
   destroyCardResolver
-} = require('../../resolvers/root/mutationResolvers');
+} = require('../resolvers/mutationResolvers');
 
 const mutationType = new graphql.GraphQLObjectType({
   name: 'Mutation',

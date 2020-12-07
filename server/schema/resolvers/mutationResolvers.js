@@ -1,5 +1,5 @@
-const { User, Card } = require('../../../model/model');
-const { shallowClone } = require('../../../helpers/cloneUtils');
+const { User, Card } = require('../../model/model');
+const { shallowClone } = require('../../helpers/cloneUtils');
 
 const mutationResolvers = {};
 

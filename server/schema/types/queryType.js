@@ -4,13 +4,13 @@ const {
   GraphQLID,
   GraphQLString
 } = require('graphql');
-const { userType, cardType } = require('../types');
+const { userType, cardType } = require('./custom/types');
 const {
   userResolver,
   usersResolver,
   cardResolver,
   cardsResolver
-} = require('../../resolvers/root/queryResolvers');
+} = require('../resolvers/queryResolvers');
 
 const queryType = new GraphQLObjectType({
   name: 'Query',
