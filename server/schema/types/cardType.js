@@ -1,7 +1,7 @@
 const { GraphQLObjectType, GraphQLID, GraphQLString } = require('graphql');
 const { authorResolver } = require('../resolvers/cardResolvers');
 
-const CardType = (types) => new GraphQLObjectType({
+const cardType = (types) => new GraphQLObjectType({
   name: 'Card',
   fields: {
     _id: { type: GraphQLID },
@@ -9,10 +9,10 @@ const CardType = (types) => new GraphQLObjectType({
     body: { type: GraphQLString },
     group: { type: GraphQLString },
     author: {
-      type: types.UserType,
+      type: types.userType,
       resolve: authorResolver
     }
   }
 });
 
-module.exports = CardType;
+module.exports = cardType;

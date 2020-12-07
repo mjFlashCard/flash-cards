@@ -1,5 +1,5 @@
 const graphql = require('graphql');
-const { UserType, CardType } = require('../types');
+const { userType, cardType } = require('../types');
 const {
   createUserResolver,
   updateUserResolver,
@@ -11,11 +11,11 @@ const {
   destroyCardResolver
 } = require('../../resolvers/root/mutationResolvers');
 
-const MutationType = new graphql.GraphQLObjectType({
+const mutationType = new graphql.GraphQLObjectType({
   name: 'Mutation',
   fields: {
     createUser: {
-      type: UserType,
+      type: userType,
       args: {
         username: { type: graphql.GraphQLString },
         password: { type: graphql.GraphQLString },
@@ -25,7 +25,7 @@ const MutationType = new graphql.GraphQLObjectType({
       resolve: createUserResolver
     },
     updateUser: {
-      type: UserType,
+      type: userType,
       args: {
         _id: { type: graphql.GraphQLID },
         username: { type: graphql.GraphQLString },
@@ -36,7 +36,7 @@ const MutationType = new graphql.GraphQLObjectType({
       resolve: updateUserResolver
     },
     replaceUser: {
-      type: UserType,
+      type: userType,
       args: {
         _id: { type: graphql.GraphQLID },
         username: { type: graphql.GraphQLString },
@@ -47,12 +47,12 @@ const MutationType = new graphql.GraphQLObjectType({
       resolve: replaceUserResolver
     },
     destroyUser: {
-      type: UserType,
+      type: userType,
       args: { _id: { type: graphql.GraphQLID } },
       resolve: destroyUserResolver
     },
     createCard: {
-      type: CardType,
+      type: cardType,
       args: {
         title: { type: graphql.GraphQLString },
         body: { type: graphql.GraphQLString },
@@ -62,7 +62,7 @@ const MutationType = new graphql.GraphQLObjectType({
       resolve: createCardResolver
     },
     updateCard: {
-      type: CardType,
+      type: cardType,
       args: {
         _id: { type: graphql.GraphQLID },
         title: { type: graphql.GraphQLString },
@@ -73,7 +73,7 @@ const MutationType = new graphql.GraphQLObjectType({
       resolve: updateCardResolver
     },
     replaceCard: {
-      type: CardType,
+      type: cardType,
       args: {
         _id: { type: graphql.GraphQLID },
         title: { type: graphql.GraphQLString },
@@ -84,11 +84,11 @@ const MutationType = new graphql.GraphQLObjectType({
       resolve: replaceCardResolver
     },
     destroyCard: {
-      type: CardType,
+      type: cardType,
       args: { _id: { type: graphql.GraphQLID } },
       resolve: destroyCardResolver
     }
   }
 });
 
-module.exports = MutationType;
+module.exports = mutationType;
