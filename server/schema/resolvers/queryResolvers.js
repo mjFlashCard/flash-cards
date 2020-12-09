@@ -1,37 +1,11 @@
-const { User, Card } = require('../../model/model');
-
 const queryResolvers = {};
 
-queryResolvers.userResolver = (parent, args) => {
-  try {
-    return User.findOne(args);
-  } catch (err) {
-    return err;
-  }
-};
+queryResolvers.userResolver = async (parent, args, { loaders }) => loaders.users.load(args._id);
 
-queryResolvers.usersResolver = () => {
-  try {
-    return User.find({});
-  } catch (err) {
-    return err;
-  }
-};
+queryResolvers.usersResolver = async (parent, args, { loaders }) => loaders.users.loadMany([]);
 
-queryResolvers.cardResolver = (parent, args) => {
-  try {
-    return Card.findOne(args);
-  } catch (err) {
-    return err;
-  }
-};
+queryResolvers.cardResolver = async (parent, args, { loaders }) => loaders.cards.load(args._id);
 
-queryResolvers.cardsResolver = () => {
-  try {
-    return Card.find({});
-  } catch (err) {
-    return err;
-  }
-};
+queryResolvers.cardsResolver = async (parent, args, { loaders }) => loaders.cards.loadMany([]);
 
 module.exports = queryResolvers;

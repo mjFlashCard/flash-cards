@@ -3,6 +3,7 @@ const { graphqlHTTP } = require('express-graphql');
 const dotenv = require('dotenv');
 const path = require('path');
 const schema = require('./schema/schema');
+const loaders = require('./loaders/loaders');
 
 if (process.env.NODE_ENV !== 'production') dotenv.config();
 
@@ -14,7 +15,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // GraphQL
-app.use('/graphql', graphqlHTTP({ schema, graphiql: true }));
+app.use('/graphql', graphqlHTTP({
+  schema,
+  context: { loaders },
+  graphiql: true
+}));
 
 // Serve client entrypoint
 app.get('/', (req, res) => res.sendFile(path.resolve(__dirname, '../client/index.html')));

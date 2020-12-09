@@ -2,20 +2,12 @@ const { Card } = require('../../model/model');
 
 const userResolvers = {};
 
-userResolvers.cardResolver = (parent, args) => {
-  try {
-    return Card.find({ _id: args._id, userID: parent._id });
-  } catch (err) {
-    return err;
-  }
-};
+userResolvers.cardResolver = async (parent, args) => (
+  Card.find({ _id: args._id, userID: parent._id })
+);
 
-userResolvers.cardsResolver = (parent) => {
-  try {
-    return Card.find({ userID: parent._id });
-  } catch (err) {
-    return err;
-  }
-};
+userResolvers.cardsResolver = async (parent, args, { loaders }) => (
+  loaders.cardsByAuthor.load(parent._id)
+);
 
 module.exports = userResolvers;

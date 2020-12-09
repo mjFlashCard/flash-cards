@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/mjFlashCard/flash-cards#readme",
   "dependencies": {
+    "dataloader": "^2.0.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-graphql": "^0.12.0",
