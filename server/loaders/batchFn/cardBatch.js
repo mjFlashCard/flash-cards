@@ -20,10 +20,7 @@ const createCardCacheFn = (loader) => (results) => {
     if (cardsForCache[card.userID]) cardsForCache[card.userID].push(card);
     else cardsForCache[card.userID] = [card];
   });
-  Object.keys(cardsForCache).forEach((userID) => {
-    // eslint-disable-next-line no-use-before-define
-    loader.prime(userID, cardsForCache[userID]);
-  });
+  Object.keys(cardsForCache).forEach((userID) => loader.prime(userID, cardsForCache[userID]));
 };
 
 module.exports = { batchCards, queryAllCards, createCardCacheFn };

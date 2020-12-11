@@ -1,4 +1,4 @@
-const Loader = require('./Loader/LoaderWrapper');
+const Loader = require('./Loader/Loader');
 const { batchUsers, queryAllUsers } = require('./batchFn/userBatch');
 const { batchCards, queryAllCards, createCardCacheFn } = require('./batchFn/cardBatch');
 const { batchCardsByAuthor, createCardByAuthorCacheFn } = require('./batchFn/cardByAuthorBatch');

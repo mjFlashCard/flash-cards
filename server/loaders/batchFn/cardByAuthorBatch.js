@@ -13,9 +13,8 @@ async function batchCardsByAuthor(keys) {
 
 // Create function for priming 'cardLoader' cache from 'cardsByAuthorLoader'
 const createCardByAuthorCacheFn = (loader) => (results) => {
-  results.forEach((card) => {
-    // eslint-disable-next-line no-use-before-define
-    loader.prime(card._id, card);
+  results.forEach((cards) => {
+    cards.forEach((card) => loader.prime(card._id, card));
   });
 };
 
