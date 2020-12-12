@@ -8,13 +8,13 @@ async function batchCardsByAuthor(keys) {
     if (cards[card.userID]) cards[card.userID].push(card);
     else cards[card.userID] = [card];
   });
-  return keys.map((key) => cards[key]);
+  return keys.map((key) => cards[key] || null);
 }
 
 // Create function for priming 'cardLoader' cache from 'cardsByAuthorLoader'
 const createCardByAuthorCacheFn = (loader) => (results) => {
   results.forEach((cards) => {
-    cards.forEach((card) => loader.prime(card._id, card));
+    if (cards !== null) cards.forEach((card) => loader.prime(card._id, card));
   });
 };
 
