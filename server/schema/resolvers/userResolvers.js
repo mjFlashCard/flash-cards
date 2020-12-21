@@ -7,7 +7,7 @@ userResolvers.cardResolver = async (parent, args) => (
 );
 
 userResolvers.cardsResolver = async (parent, args, { loaders }) => (
-  loaders.cardsByAuthor.load(parent._id)
+  loaders.cardsByAuth.load(parent._id)
 );
 
 module.exports = userResolvers;

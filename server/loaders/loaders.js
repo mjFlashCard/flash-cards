@@ -1,25 +1,20 @@
 const Loader = require('./Loader/Loader');
-const { batchUsers, queryAllUsers } = require('./batchFn/userBatch');
-const { batchCards, queryAllCards, createCardCacheFn } = require('./batchFn/cardBatch');
-const { batchCardsByAuthor, createCardByAuthorCacheFn } = require('./batchFn/cardByAuthorBatch');
+const createUserByIdFns = require('./batchFns/userById');
+const createCardByIdFns = require('./batchFns/cardById');
+const createCardByAuthFns = require('./batchFns/cardByAuth');
 
 // Cache keys as strings
 const cacheKeyFn = (key) => key.toString();
 
-// Creating named loaders necessary for priming caches
-const userLoader = new Loader(batchUsers, { queryAllFn: queryAllUsers, cacheKeyFn });
-const cardLoader = new Loader(batchCards, {
-  queryAllFn: queryAllCards,
-  cacheKeyFn
-});
-const cardsByAuthorLoader = new Loader(batchCardsByAuthor, {
-  cacheFn: createCardByAuthorCacheFn(cardLoader),
-  cacheKeyFn
-});
-cardLoader.setCacheFn(createCardCacheFn(cardsByAuthorLoader));
+// Create batch functions
+const loaders = {};
+const { batchUsers, batchAllUsers } = createUserByIdFns();
+const { batchCards, batchAllCards } = createCardByIdFns(loaders);
+const { batchCardsByAuth } = createCardByAuthFns(loaders);
 
-module.exports = {
-  users: userLoader,
-  cards: cardLoader,
-  cardsByAuthor: cardsByAuthorLoader
-};
+// Create loaders
+loaders.users = new Loader(batchUsers, { batchAllFn: batchAllUsers, cacheKeyFn });
+loaders.cards = new Loader(batchCards, { batchAllFn: batchAllCards, cacheKeyFn });
+loaders.cardsByAuth = new Loader(batchCardsByAuth, { cacheKeyFn });
+
+module.exports = { loaders, cleanup: Loader.cleanup.bind(Loader) };
