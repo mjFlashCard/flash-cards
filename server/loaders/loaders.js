@@ -17,4 +17,7 @@ loaders.users = new Loader(batchUsers, { batchAllFn: batchAllUsers, cacheKeyFn }
 loaders.cards = new Loader(batchCards, { batchAllFn: batchAllCards, cacheKeyFn });
 loaders.cardsByAuth = new Loader(batchCardsByAuth, { cacheKeyFn });
 
+// Connect card loaders
+loaders.cards.connect(loaders.cardsByAuth);
+
 module.exports = { loaders, cleanup: Loader.cleanup.bind(Loader) };

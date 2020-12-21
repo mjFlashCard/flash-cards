@@ -11,6 +11,7 @@ function Loader(batchFn, { batchAllFn, ...options }) {
   DataLoader.call(this, batchFn, options);
   // Loader attribues
   this._batchAllFn = batchAllFn;
+  this._connected = [this];
   this._all = { pending: false, resolved: false };
   this._loadEmitter = new EventEmitter();
 }
@@ -57,12 +58,12 @@ Loader.prototype.loadAll = function loadAll() {
       // If 'queryAllFn' has been defined, pend future loads and use query db
       } else if (this._batchAllFn) {
         // Pend future loads
-        this._all.pending = true;
+        this._setAll({ pending: true });
         // Query db
         this._batchAllFn()
           .then((results) => {
             // Set loader to resolved
-            this._all.resolved = true;
+            this._setAll({ resolved: true });
             // Manually prime cache with results
             results.forEach((result) => this.prime(result._id.toString(), result));
             // Execute pending loads
@@ -77,7 +78,23 @@ Loader.prototype.loadAll = function loadAll() {
   });
 };
 
-// Clear cache and set to loader to unresolved
+// Connect loader
+Loader.prototype.connect = function connect(...loaders) {
+  for (let i = 0; i < loaders.length; i++) {
+    this._connected.push(loaders[i]);
+    loaders[i]._connected.push(this);
+  }
+};
+
+// Set loader and all connected loaders '_all' property
+Loader.prototype._setAll = function _setAll({ pending, resolved }) {
+  for (let i = 0; i < this._connected.length; i++) {
+    if (pending !== undefined) this._connected[i]._all.pending = pending;
+    if (resolved !== undefined) this._connected[i]._all.resolved = resolved;
+  }
+};
+
+// Clear cache and set loader to unresolved
 Loader.prototype._cleanup = function _cleanup() {
   this._all.resolved = false;
   this.clearAll();
@@ -90,8 +107,7 @@ Loader.prototype._pend = function _pend(cb) {
 
 // Execute pending loads
 Loader.prototype._execPending = function _execPending() {
-  this._all.pending = false;
-  this._all.resolved = true;
+  this._setAll({ pending: false, resolved: true });
   this._loadEmitter.emit(ALL_RESOLVED);
   this._loadEmitter.removeAllListeners(ALL_RESOLVED);
 };
