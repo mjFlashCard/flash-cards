@@ -108,8 +108,10 @@ Loader.prototype._pend = function _pend(cb) {
 // Execute pending loads
 Loader.prototype._execPending = function _execPending() {
   this._setAll({ pending: false, resolved: true });
-  this._loadEmitter.emit(ALL_RESOLVED);
-  this._loadEmitter.removeAllListeners(ALL_RESOLVED);
+  for (let i = 0; i < this._connected.length; i++) {
+    this._connected[i]._loadEmitter.emit(ALL_RESOLVED);
+    this._connected[i]._loadEmitter.removeAllListeners(ALL_RESOLVED);
+  }
 };
 
 // Define Loader prototype as constructor with value of Loader
